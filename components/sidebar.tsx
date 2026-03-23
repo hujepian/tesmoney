@@ -45,7 +45,7 @@ export function Sidebar({
         </div>
       </div>
 
-      <nav className="flex-1 px-4 space-y-1 py-4">
+      <className="hidden md:flex flex-col w-64 bg-white border-r h-screen sticky top-0">
         <p className="px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
           Menu
         </p>
