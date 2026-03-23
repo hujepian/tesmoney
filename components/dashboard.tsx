@@ -115,16 +115,16 @@ export function Dashboard({ currentUser }: DashboardProps) {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center h-full ml-64">
+      <div className="flex-1 flex items-center justify-center h-screen md:ml-64">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="flex-1 p-8 ml-64 bg-background min-h-screen">
+    <div className="flex-1 p-4 md:p-8 md:ml-64 bg-background min-h-screen">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
             <h1 className="text-2xl font-bold text-foreground">
               Ringkasan Keuangan
@@ -139,7 +139,7 @@ export function Dashboard({ currentUser }: DashboardProps) {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-8">
           {statCards.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -172,9 +172,10 @@ export function Dashboard({ currentUser }: DashboardProps) {
                   <p className="text-sm font-medium text-muted-foreground mb-1">
                     {stat.label}
                   </p>
-                  <h3 className="text-2xl font-bold text-foreground tracking-tight">
-                    {stat.value}
-                  </h3>
+                  {/* text-lg untuk HP, md:text-2xl untuk Desktop */}
+<h3 className="text-lg md:text-2xl font-bold text-foreground tracking-tight truncate">
+  {stat.value}
+</h3>
                 </div>
               </Card>
             );
@@ -182,7 +183,7 @@ export function Dashboard({ currentUser }: DashboardProps) {
         </div>
 
         {/* Recent Activity & Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
           <Card className="lg:col-span-2 p-6 border-border/60">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-foreground">
