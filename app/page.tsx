@@ -94,7 +94,7 @@ export default function Home() {
       />
 
       {/* Main Content: pb-20 agar konten tidak tertutup navigasi bawah saat di HP */}
-      <main className="flex-1 overflow-auto pb-20 md:pb-0">
+      <main className="flex-1 overflow-auto pb-20 md:pb-0 px-4 md:px-8">
         {renderPage()}
       </main>
 
