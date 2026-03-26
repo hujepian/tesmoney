@@ -9,9 +9,15 @@ import { TransactionTracker } from "@/components/transaction-tracker";
 import { Analytics } from "@/components/analytics";
 import { BudgetManager } from "@/components/budget-manager";
 import { UserManager } from "@/components/user-manager";
-import { GoalsManager } from "@/components/goals-manager";
-import { WalletManager } from "@/components/wallet-manager";
 import { AIAdvisor } from "@/components/ai-advisor";
+
+// Placeholder sementara untuk komponen yang mungkin belum ada
+const GoalsManager = ({ currentUser }: { currentUser: string }) => (
+  <div className="p-8 text-white">Goals Manager - Coming Soon</div>
+);
+const WalletManager = ({ currentUser }: { currentUser: string }) => (
+  <div className="p-8 text-white">Wallet Manager - Coming Soon</div>
+);
 
 type Page =
   | "dashboard"
@@ -32,18 +38,14 @@ export default function Home() {
 
   useEffect(() => {
     const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push("/login");
         return;
       }
       setCurrentUser(user.id);
-
       const savedPage = localStorage.getItem("currentPage") as Page;
       if (savedPage) setCurrentPage(savedPage);
-
       setLoading(false);
     };
     getUser();
@@ -68,12 +70,7 @@ export default function Home() {
       case "ai-advisor":
         return <AIAdvisor currentUser={currentUser} />;
       case "users":
-        return (
-          <UserManager
-            currentUser={currentUser}
-            setCurrentUser={setCurrentUser}
-          />
-        );
+        return <UserManager currentUser={currentUser} setCurrentUser={setCurrentUser} />;
       case "goals":
         return <GoalsManager currentUser={currentUser} />;
       default:
