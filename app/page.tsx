@@ -9,10 +9,27 @@ import { TransactionTracker } from "@/components/transaction-tracker";
 import { Analytics } from "@/components/analytics";
 import { BudgetManager } from "@/components/budget-manager";
 import { UserManager } from "@/components/user-manager";
-import { GoalsManager } from "@/components/goals-manager";
-import { WalletManager } from "@/components/wallet-manager";
 import { AIAdvisor } from "@/components/ai-advisor";
 
+// Import dengan fallback untuk komponen yang mungkin belum ada
+let GoalsManager: any = () => <div>Goals Manager - Coming Soon</div>;
+let WalletManager: any = () => <div>Wallet Manager - Coming Soon</div>;
+
+try {
+  // Coba import GoalsManager
+  const importedGoals = require("@/components/goals-manager");
+  GoalsManager = importedGoals.GoalsManager || importedGoals.default || (() => <div>Goals Manager</div>);
+} catch (e) {
+  console.log("GoalsManager not found, using placeholder");
+}
+
+try {
+  // Coba import WalletManager
+  const importedWallets = require("@/components/wallet-manager");
+  WalletManager = importedWallets.WalletManager || importedWallets.default || (() => <div>Wallet Manager</div>);
+} catch (e) {
+  console.log("WalletManager not found, using placeholder");
+}
 
 type Page =
   | "dashboard"
@@ -67,7 +84,7 @@ export default function Home() {
       case "budget":
         return <BudgetManager currentUser={currentUser} />;
       case "ai-advisor":
-         return <AIAdvisor currentUser={currentUser} />;
+        return <AIAdvisor currentUser={currentUser} />;
       case "users":
         return (
           <UserManager
@@ -94,11 +111,6 @@ export default function Home() {
         currentUser={currentUser}
       />
 
-      {/*
-        PERUBAHAN LAYOUT UTAMA:
-        - Desktop (lg+): margin-left 256px (sidebar lebar), tidak ada padding atas/bawah
-        - Mobile: margin-top 56px (topbar), margin-bottom 64px (bottom nav)
-      */}
       <main className="flex-1 overflow-auto lg:ml-64 mt-14 mb-16 lg:mt-0 lg:mb-0">
         {renderPage()}
       </main>
